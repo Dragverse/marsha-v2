@@ -1,0 +1,14 @@
+type Transaction @createModel(accountRelation: LIST, description: "Payment transactions") {
+  fromDID: DID! @documentAccount
+  toDID: DID!
+  amount: Float!
+  currency: String! @string(maxLength: 10)
+  paymentType: String! @string(maxLength: 20)
+  videoID: StreamID
+  livestreamID: StreamID
+  txHash: String @string(maxLength: 200)
+  stripePaymentId: String @string(maxLength: 200)
+  status: String! @string(maxLength: 20)
+  message: String @string(maxLength: 500)
+  createdAt: DateTime!
+}

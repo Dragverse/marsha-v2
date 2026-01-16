@@ -1,0 +1,7 @@
+# Follow Relationship Schema
+type Follow @createModel(accountRelation: LIST, description: "A follow relationship between users") {
+  followerDID: DID! @accountReference
+  followingDID: DID! @accountReference
+
+  createdAt: DateTime!
+}

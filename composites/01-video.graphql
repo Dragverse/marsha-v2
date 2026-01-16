@@ -1,0 +1,31 @@
+# Video Schema
+type Video @createModel(accountRelation: LIST, description: "A video uploaded by a creator") {
+  title: String! @string(minLength: 1, maxLength: 200)
+  description: String @string(maxLength: 5000)
+  thumbnail: String @string(maxLength: 500)
+
+  # Livepeer data
+  livepeerAssetId: String! @string(maxLength: 100)
+  playbackId: String @string(maxLength: 100)
+  playbackUrl: String @string(maxLength: 500)
+
+  # Metadata
+  duration: Int @int(min: 0)
+  contentType: String! @string(maxLength: 20) # short, long, podcast, music, live
+  category: String! @string(maxLength: 50)
+  tags: String @string(maxLength: 500) # Comma-separated tags
+
+  # Stats
+  views: Int @int(min: 0, max: 999999999)
+  likes: Int @int(min: 0, max: 999999999)
+  tipCount: Int @int(min: 0, max: 999999999)
+  totalTipsUSD: Float @float(min: 0)
+
+  # Timestamps
+  createdAt: DateTime!
+  publishedAt: DateTime
+  updatedAt: DateTime
+
+  # Creator reference
+  creatorDID: DID! @accountReference
+}

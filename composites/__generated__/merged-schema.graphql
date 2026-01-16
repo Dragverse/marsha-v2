@@ -1,0 +1,117 @@
+# Creator Profile Schema
+type Creator @createModel(accountRelation: SINGLE, description: "A drag creator profile") {
+  handle: String! @string(maxLength: 50)
+  displayName: String! @string(maxLength: 100)
+  avatar: String @string(maxLength: 500)
+  banner: String @string(maxLength: 500)
+  description: String @string(maxLength: 1000)
+  followerCount: Int @int(min: 0, max: 999999999)
+  followingCount: Int @int(min: 0, max: 999999999)
+  verified: Boolean
+  createdAt: DateTime!
+  updatedAt: DateTime
+
+  # Monetization
+  totalEarningsUSD: Float @float(min: 0)
+  stripeAccountId: String @string(maxLength: 100)
+  walletAddress: String @string(maxLength: 100)
+
+  # Social links
+  twitterHandle: String @string(maxLength: 50)
+  instagramHandle: String @string(maxLength: 50)
+  tiktokHandle: String @string(maxLength: 50)
+  website: String @string(maxLength: 200)
+}
+# Video Schema
+type Video @createModel(accountRelation: LIST, description: "A video uploaded by a creator") {
+  title: String! @string(minLength: 1, maxLength: 200)
+  description: String @string(maxLength: 5000)
+  thumbnail: String @string(maxLength: 500)
+
+  # Livepeer data
+  livepeerAssetId: String! @string(maxLength: 100)
+  playbackId: String @string(maxLength: 100)
+  playbackUrl: String @string(maxLength: 500)
+
+  # Metadata
+  duration: Int @int(min: 0)
+  contentType: String! @string(maxLength: 20) # short, long, podcast, music, live
+  category: String! @string(maxLength: 50)
+  tags: String @string(maxLength: 500) # Comma-separated tags
+
+  # Stats
+  views: Int @int(min: 0, max: 999999999)
+  likes: Int @int(min: 0, max: 999999999)
+  tipCount: Int @int(min: 0, max: 999999999)
+  totalTipsUSD: Float @float(min: 0)
+
+  # Timestamps
+  createdAt: DateTime!
+  publishedAt: DateTime
+  updatedAt: DateTime
+
+  # Creator reference
+  creatorDID: DID! @accountReference
+}
+# Follow Relationship Schema
+type Follow @createModel(accountRelation: LIST, description: "A follow relationship between users") {
+  followerDID: DID! @accountReference
+  followingDID: DID! @accountReference
+
+  createdAt: DateTime!
+}
+# Like/Reaction Schema
+type Like @createModel(accountRelation: LIST, description: "A like on a video") {
+  videoDID: StreamID! @documentReference(model: "Video")
+  userDID: DID! @accountReference
+
+  createdAt: DateTime!
+}
+# Comment Schema
+type Comment @createModel(accountRelation: LIST, description: "A comment on a video") {
+  videoDID: StreamID! @documentReference(model: "Video")
+  authorDID: DID! @accountReference
+  author: Creator @relationFrom(model: "Creator", property: "authorDID")
+
+  content: String! @string(minLength: 1, maxLength: 1000)
+
+  # For threaded comments
+  parentCommentDID: StreamID @documentReference(model: "Comment")
+
+  likes: Int @int(min: 0, max: 999999999)
+
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+type Livestream @createModel(accountRelation: LIST, description: "Creator livestream") {
+  creatorDID: DID! @documentAccount
+  streamId: String! @string(maxLength: 100)
+  title: String! @string(maxLength: 200)
+  description: String @string(maxLength: 5000)
+  playbackUrl: String! @string(maxLength: 500)
+  playbackId: String! @string(maxLength: 100)
+  streamKey: String! @string(maxLength: 200)
+  rtmpIngestUrl: String! @string(maxLength: 500)
+  isActive: Boolean!
+  startedAt: DateTime
+  endedAt: DateTime
+  viewerCount: Int
+  category: String @string(maxLength: 50)
+  tags: String @string(maxLength: 500) # Comma-separated tags
+  thumbnail: String @string(maxLength: 500)
+  createdAt: DateTime!
+}
+type Transaction @createModel(accountRelation: LIST, description: "Payment transactions") {
+  fromDID: DID! @documentAccount
+  toDID: DID!
+  amount: Float!
+  currency: String! @string(maxLength: 10)
+  paymentType: String! @string(maxLength: 20)
+  videoID: StreamID
+  livestreamID: StreamID
+  txHash: String @string(maxLength: 200)
+  stripePaymentId: String @string(maxLength: 200)
+  status: String! @string(maxLength: 20)
+  message: String @string(maxLength: 500)
+  createdAt: DateTime!
+}

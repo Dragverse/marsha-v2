@@ -1,0 +1,18 @@
+type Livestream @createModel(accountRelation: LIST, description: "Creator livestream") {
+  creatorDID: DID! @documentAccount
+  streamId: String! @string(maxLength: 100)
+  title: String! @string(maxLength: 200)
+  description: String @string(maxLength: 5000)
+  playbackUrl: String! @string(maxLength: 500)
+  playbackId: String! @string(maxLength: 100)
+  streamKey: String! @string(maxLength: 200)
+  rtmpIngestUrl: String! @string(maxLength: 500)
+  isActive: Boolean!
+  startedAt: DateTime
+  endedAt: DateTime
+  viewerCount: Int
+  category: String @string(maxLength: 50)
+  tags: String @string(maxLength: 500) # Comma-separated tags
+  thumbnail: String @string(maxLength: 500)
+  createdAt: DateTime!
+}

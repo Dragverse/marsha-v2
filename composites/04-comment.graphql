@@ -1,0 +1,16 @@
+# Comment Schema
+type Comment @createModel(accountRelation: LIST, description: "A comment on a video") {
+  videoDID: StreamID! @documentReference(model: "Video")
+  authorDID: DID! @accountReference
+  author: Creator @relationFrom(model: "Creator", property: "authorDID")
+
+  content: String! @string(minLength: 1, maxLength: 1000)
+
+  # For threaded comments
+  parentCommentDID: StreamID @documentReference(model: "Comment")
+
+  likes: Int @int(min: 0, max: 999999999)
+
+  createdAt: DateTime!
+  updatedAt: DateTime
+}

@@ -1,0 +1,64 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0b2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f071a;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Noise pattern for static effect -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" />
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend mode="overlay" in2="SourceGraphic" />
+    </filter>
+
+    <!-- Pink glow -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Static noise overlay -->
+  <rect width="800" height="600" filter="url(#noise)" opacity="0.15"/>
+
+  <!-- Retro TV static bars (pink theme) -->
+  <g opacity="0.3">
+    <rect x="0" y="100" width="800" height="80" fill="#EB83EA" opacity="0.15"/>
+    <rect x="0" y="220" width="800" height="50" fill="#E748E6" opacity="0.2"/>
+    <rect x="0" y="310" width="800" height="90" fill="#EB83EA" opacity="0.1"/>
+    <rect x="0" y="440" width="800" height="60" fill="#E748E6" opacity="0.15"/>
+  </g>
+
+  <!-- Fuzzy circles (old TV off signal style) -->
+  <circle cx="400" cy="300" r="180" fill="none" stroke="#EB83EA" stroke-width="3" opacity="0.2" filter="url(#glow)"/>
+  <circle cx="400" cy="300" r="140" fill="none" stroke="#E748E6" stroke-width="2" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="400" cy="300" r="100" fill="none" stroke="#EB83EA" stroke-width="4" opacity="0.4" filter="url(#glow)"/>
+
+  <!-- Center dot (classic TV test pattern) -->
+  <circle cx="400" cy="300" r="30" fill="#EB83EA" opacity="0.6" filter="url(#glow)"/>
+
+  <!-- OFFLINE text -->
+  <text x="400" y="480" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#EB83EA" text-anchor="middle" filter="url(#glow)">
+    OFFLINE
+  </text>
+
+  <!-- Scanlines effect -->
+  <g opacity="0.1">
+    <line x1="0" y1="0" x2="800" y2="0" stroke="#ffffff" stroke-width="1" />
+    <line x1="0" y1="4" x2="800" y2="4" stroke="#ffffff" stroke-width="1" />
+    <line x1="0" y1="8" x2="800" y2="8" stroke="#ffffff" stroke-width="1" />
+    <line x1="0" y1="12" x2="800" y2="12" stroke="#ffffff" stroke-width="1" />
+    <pattern id="scanlines" x="0" y="0" width="1" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="1" y2="0" stroke="#ffffff" stroke-width="0.5" />
+    </pattern>
+    <rect width="800" height="600" fill="url(#scanlines)"/>
+  </g>
+</svg>

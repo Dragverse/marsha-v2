@@ -1,0 +1,7 @@
+# Like/Reaction Schema
+type Like @createModel(accountRelation: LIST, description: "A like on a video") {
+  videoDID: StreamID! @documentReference(model: "Video")
+  userDID: DID! @accountReference
+
+  createdAt: DateTime!
+}
