@@ -59,7 +59,7 @@ export function HeroSection() {
           </div>
         ) : isLive ? (
           // Live stream player
-          <Player.Root src={getSrc(STREAM_URL)} autoPlay muted>
+          <Player.Root src={getSrc(STREAM_URL)} autoPlay>
             <Player.Container className="h-full">
               <Player.Video className="w-full h-full object-cover" />
               <Player.Controls autoHide={3000} className="p-4">

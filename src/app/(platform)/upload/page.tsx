@@ -198,7 +198,6 @@ export default function UploadPage() {
             livepeerAssetId: readyAsset.id,
             playbackId: readyAsset.playbackId,
             playbackUrl: readyAsset.playbackUrl,
-            duration: readyAsset.videoSpec?.duration,
             contentType: formData.contentType,
             category: formData.category,
             tags: formData.tags ? formData.tags.split(",").map((t: string) => t.trim()) : [],
