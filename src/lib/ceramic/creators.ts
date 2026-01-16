@@ -18,6 +18,9 @@ export interface CreateCreatorInput {
  */
 export async function createOrUpdateCreator(input: CreateCreatorInput) {
   const compose = getComposeClient();
+  if (!compose) {
+    throw new Error("Ceramic is not configured. Run 'npm run ceramic:setup' first.");
+  }
 
   // Check if profile already exists
   const existing = await getCreatorByDID((compose as any).context?.did?.id || "");
@@ -94,6 +97,7 @@ export async function createOrUpdateCreator(input: CreateCreatorInput) {
  */
 export async function getCreatorByDID(did: string) {
   const compose = getComposeClient();
+  if (!compose) return null;
 
   const query = `
     query GetCreator($did: DID!) {
@@ -132,6 +136,7 @@ export async function getCreatorByDID(did: string) {
  */
 export async function getCreatorByHandle(handle: string) {
   const compose = getComposeClient();
+  if (!compose) return null;
 
   const query = `
     query GetCreatorByHandle($handle: String!) {
@@ -176,6 +181,7 @@ export async function getCreatorByHandle(handle: string) {
  */
 export async function searchCreators(searchTerm: string, first = 20) {
   const compose = getComposeClient();
+  if (!compose) return [];
 
   // Note: This is a simplified search. In production, you'd want to use
   // a proper search solution like Algolia or implement text search in your queries
@@ -221,6 +227,9 @@ export async function updateCreatorStats(
   stats: { followerCount?: number; followingCount?: number }
 ) {
   const compose = getComposeClient();
+  if (!compose) {
+    throw new Error("Ceramic is not configured. Run 'npm run ceramic:setup' first.");
+  }
 
   const mutation = `
     mutation UpdateCreatorStats($id: ID!, $input: UpdateCreatorInput!) {

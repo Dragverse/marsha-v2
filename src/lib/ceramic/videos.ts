@@ -19,6 +19,9 @@ export interface CreateVideoInput {
  */
 export async function createVideo(input: CreateVideoInput) {
   const compose = getComposeClient();
+  if (!compose) {
+    throw new Error("Ceramic is not configured. Run 'npm run ceramic:setup' first.");
+  }
 
   const mutation = `
     mutation CreateVideo($input: CreateVideoInput!) {
@@ -66,6 +69,7 @@ export async function createVideo(input: CreateVideoInput) {
  */
 export async function getVideo(id: string) {
   const compose = getComposeClient();
+  if (!compose) return null;
 
   const query = `
     query GetVideo($id: ID!) {
@@ -110,6 +114,7 @@ export async function getVideo(id: string) {
  */
 export async function getVideos(first = 20, after?: string) {
   const compose = getComposeClient();
+  if (!compose) return { videos: [], pageInfo: { hasNextPage: false, endCursor: null } };
 
   const query = `
     query GetVideos($first: Int!, $after: String) {
@@ -160,6 +165,9 @@ export async function updateVideoStats(
   stats: { views?: number; likes?: number }
 ) {
   const compose = getComposeClient();
+  if (!compose) {
+    throw new Error("Ceramic is not configured. Run 'npm run ceramic:setup' first.");
+  }
 
   const mutation = `
     mutation UpdateVideo($id: ID!, $input: UpdateVideoInput!) {
@@ -190,6 +198,7 @@ export async function updateVideoStats(
  */
 export async function getVideosByCreator(creatorDID: string, first = 20) {
   const compose = getComposeClient();
+  if (!compose) return [];
 
   const query = `
     query GetVideosByCreator($creatorDID: DID!, $first: Int!) {

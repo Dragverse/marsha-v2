@@ -26,7 +26,7 @@ export function getCeramicClient(): CeramicClient {
  * Initialize and get the ComposeDB client
  * This requires the runtime composite definition
  */
-export function getComposeClient(): ComposeClient {
+export function getComposeClient(): ComposeClient | null {
   if (!composeClient) {
     getCeramicClient();
 
@@ -40,14 +40,10 @@ export function getComposeClient(): ComposeClient {
         definition,
       });
     } catch {
-      // Composite not generated yet, create a placeholder
-      // This will fail at runtime until you run the setup script
+      // Composite not generated yet - return null to indicate Ceramic is not ready
+      // This prevents build errors when the definition file doesn't exist
       console.warn("Ceramic composite not found. Run 'npm run ceramic:setup' to initialize.");
-      composeClient = new ComposeClient({
-        ceramic: CERAMIC_URL,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        definition: {} as any,
-      });
+      return null;
     }
   }
   return composeClient;
