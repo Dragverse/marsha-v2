@@ -72,20 +72,14 @@ export function HeroSection() {
             </Player.Container>
           </Player.Root>
         ) : (
-          // Offline placeholder with retro TV static image
+          // Offline placeholder
           <div className="absolute inset-0">
             <Image
-              src="/stream-offline.svg"
-              alt="Stream Offline"
+              src="/stream-offline.png"
+              alt="Stream Currently Offline"
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0f071a]/20">
-              <h3 className="text-xl font-bold mb-2 text-white drop-shadow-lg">Dragverse Stream</h3>
-              <p className="text-gray-300 text-sm max-w-xs text-center drop-shadow-lg">
-                Check back soon for live drag performances!
-              </p>
-            </div>
           </div>
         )}
         </div>
