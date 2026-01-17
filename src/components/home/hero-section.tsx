@@ -44,11 +44,13 @@ export function HeroSection() {
 
       {/* Right - Dragverse Stream */}
       <div className="lg:col-span-2 relative rounded-[32px] overflow-hidden bg-[#1a0b2e] min-h-[400px] shadow-2xl">
-        {/* Live Badge */}
-        {isLive && (
-          <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-red-600 px-3 py-1.5 rounded-full">
-            <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            <span className="text-xs font-bold uppercase">Live</span>
+        {/* Status Badge */}
+        {!checkingStream && (
+          <div className={`absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full ${
+            isLive ? 'bg-[#4CAF50]' : 'bg-[#C62828]'
+          }`}>
+            <span className={`w-2 h-2 bg-white rounded-full ${isLive ? 'animate-pulse' : ''}`} />
+            <span className="text-xs font-bold uppercase text-white">{isLive ? 'Live' : 'Offline'}</span>
           </div>
         )}
 
