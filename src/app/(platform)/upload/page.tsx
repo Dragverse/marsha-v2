@@ -79,9 +79,9 @@ export default function UploadPage() {
         const duration = video.duration; // in seconds
 
         if (formData.contentType === "short") {
-          // Vertical/Short content: max 60 seconds
-          if (duration > 60) {
-            toast.error("Short videos must be 60 seconds or less.");
+          // Vertical/Short content: max 20 minutes
+          if (duration > 1200) {
+            toast.error("Short videos must be 20 minutes or less.");
             resolve(false);
             return;
           }

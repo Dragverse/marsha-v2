@@ -15,6 +15,7 @@ import {
   FiAward,
   FiBarChart2,
   FiBell,
+  FiGlobe,
 } from "react-icons/fi";
 import { BsPlayFill, BsLightningFill } from "react-icons/bs";
 import { usePrivy } from "@privy-io/react-auth";
@@ -151,6 +152,12 @@ export function Navbar() {
                 >
                   Go Live
                 </Link>
+                <Link
+                  href="/about"
+                  className="block w-full text-left px-4 py-2 text-sm font-semibold hover:bg-white/5 rounded-xl transition-colors"
+                >
+                  Technology & Ethics
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-2 text-sm font-semibold text-red-400 hover:bg-red-500/10 rounded-xl transition-colors"
@@ -225,6 +232,13 @@ export function Navbar() {
               className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition"
             >
               <FiAward className="w-5 h-5" /> Hall of Fame
+            </Link>
+            <Link
+              href="/about"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition"
+            >
+              <FiGlobe className="w-5 h-5" /> Technology & Ethics
             </Link>
             {authenticated && (
               <>
