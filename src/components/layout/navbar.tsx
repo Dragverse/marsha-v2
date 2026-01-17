@@ -16,11 +16,13 @@ import {
   FiBarChart2,
   FiBell,
   FiGlobe,
+  FiPlus,
 } from "react-icons/fi";
 import { BsPlayFill, BsLightningFill } from "react-icons/bs";
 import { usePrivy } from "@privy-io/react-auth";
 import { useAuth } from "@/lib/store/auth";
 import { useCanLivestream } from "@/lib/livestream";
+import { VerificationBadge } from "@/components/ui/verification-badge";
 
 export function Navbar() {
   const { login, logout, authenticated, user } = usePrivy();
@@ -86,6 +88,13 @@ export function Navbar() {
           {authenticated && (
             <>
               <Link
+                href="/upload"
+                title="Upload Video"
+                className="p-2.5 hover:bg-white/5 rounded-full transition-colors group hidden md:flex items-center justify-center"
+              >
+                <FiPlus className="w-5 h-5 text-gray-300 group-hover:text-[#EB83EA]" />
+              </Link>
+              <Link
                 href="/live"
                 title="Go Live"
                 className={`p-2.5 hover:bg-white/5 rounded-full transition-colors group hidden md:flex items-center justify-center ${
@@ -117,7 +126,7 @@ export function Navbar() {
 
           {authenticated ? (
             <div className="relative group ml-2 hidden md:block">
-              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#EB83EA] cursor-pointer hover:scale-105 transition-transform">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-[#EB83EA] cursor-pointer hover:scale-105 transition-transform">
                 <Image
                   alt="User Profile"
                   width={40}
@@ -125,6 +134,10 @@ export function Navbar() {
                   className="w-full h-full object-cover"
                   src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=80"
                 />
+                {/* Verification Badge - Example: shows "human" verification */}
+                <div className="absolute -bottom-0.5 -right-0.5">
+                  <VerificationBadge type="human" size={16} />
+                </div>
               </div>
               {/* Dropdown */}
               <div className="absolute right-0 top-full mt-2 w-48 bg-[#1a0b2e] border border-white/10 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all p-2 z-50">
